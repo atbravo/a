@@ -1,10 +1,14 @@
 import socket
+from threading import Lock
 #import tqdm
 import threading
 import os
 import hashlib
-enviar = 0
-def clientHandler(client_socket):
+
+def clientHandler(client_socket, lock):
+    global received
+    global enviar 
+    lock.acquire()
     if(enviar == 0):
         enviar = 1
         client_socket.send(f"enviar".encode())
@@ -12,7 +16,7 @@ def clientHandler(client_socket):
     else:
         client_socket.send(f"recibir".encode())
         client_socket.recv(8).decode()
-
+    lock.release()
     filename = received
     filesize = os.path.getsize(filename)
     hash = hash_file(filename)
@@ -34,7 +38,7 @@ def hash_file(filename):
    h = hashlib.sha1()
    with open(filename,'rb') as file:
 
-       # loop tilxl the end of the file
+       # loop till the end of the file
        chunk = 0
        while chunk != b'':
            # read only 1024 bytes at a time
@@ -50,6 +54,9 @@ SERVER_PORT = 8001
 BUFFER_SIZE = 4096
 SEPARATOR = "<SEPARATOR>"
 
+lock = Lock()
+enviar = 0
+received = ''
 s = socket.socket()
 s.bind((SERVER_HOST, SERVER_PORT))
 s.listen(10)
@@ -61,7 +68,5 @@ while True:
     client_socket, address = s.accept()
     print(f"[+] {address} is connected.")
     # create and start a thread to handle the client
-    client_handler = threading.Thread(target = clientHandler, args=(client_socket,))
+    client_handler = threading.Thread(target = clientHandler, args=(client_socket, lock,))
     client_handler.start()
-
-#s.close()

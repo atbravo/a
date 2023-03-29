@@ -5,7 +5,7 @@ import hashlib
 
 SEPARATOR = "<SEPARATOR>"
 BUFFER_SIZE = 4096
-host = "192.168.1.142"
+host = "127.0.0.1"
 port = 8001
 filename = ''
 
