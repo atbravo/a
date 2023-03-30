@@ -8,28 +8,32 @@ import hashlib
 def clientHandler(client_socket, lock):
     global received
     global enviar 
+    rol = 0
     lock.acquire()
     if(enviar == 0):
         enviar = 1
+        rol = 1
         client_socket.send(f"enviar".encode())
         received = client_socket.recv(BUFFER_SIZE).decode()
     else:
         client_socket.send(f"recibir".encode())
         client_socket.recv(8).decode()
     lock.release()
-    filename = received
+
+    filename, numUsers = received.split(SEPARATOR)
     filesize = os.path.getsize(filename)
     hash = hash_file(filename)
     client_socket.send(f"{filename}{SEPARATOR}{filesize}{SEPARATOR}{hash}".encode())
-    #file = open(filename, 'wb') 
     client_socket.recv(BUFFER_SIZE).decode()
-    #progress = tqdm.tqdm(range(filesize), f"Sending {filename}", unit="B", unit_scale=True, unit_divisor=1024)
-    with open(filename, "rb") as f:
-        while True:
-            bytes_read = f.read(BUFFER_SIZE)
-            if not bytes_read:
-                break
-            client_socket.sendall(bytes_read)
+    print(numUsers)
+    activos = threading.activeCount() - 1
+    if( activos >= int(numUsers)):
+        with open(filename, "rb") as f:
+            while True:
+                bytes_read = f.read(BUFFER_SIZE)
+                if not bytes_read:
+                    break
+                client_socket.sendall(bytes_read)
             #progress.update(len(bytes_read))   
     print(threading.activeCount() - 1)
     client_socket.close()
