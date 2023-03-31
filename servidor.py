@@ -20,7 +20,7 @@ def clientHandler(client_socket, lock, evento, espera):
     
     rol = 0
     lock.acquire()
-    if(numUsers != '' and activosActual > int(numUsers) -1):
+    while(numUsers != '' and activosActual > int(numUsers) -1):
         lock.release()
         espera.wait()
         lock.acquire()
