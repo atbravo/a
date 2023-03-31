@@ -9,14 +9,15 @@ from datetime import datetime
 import time
 
 file_handler = ''
+logger = ''
 def clientHandler(client_socket, lock, evento, espera):
     global numUsers
     global received
     global activosActual 
-    global file_handler
     filename = ''
     numUsers = ''
-
+    
+    rol = 0
     lock.acquire()
     if(numUsers != '' and activosActual > int(numUsers) -1):
         lock.release()
@@ -25,6 +26,7 @@ def clientHandler(client_socket, lock, evento, espera):
 
     if(activosActual == 0):
         activosActual = 1
+        rol = 1
         client_socket.send(f"enviar".encode())
         received = client_socket.recv(BUFFER_SIZE).decode()
 
@@ -82,8 +84,9 @@ def clientHandler(client_socket, lock, evento, espera):
         numUsers = ''
         activosActual = 0
         received = ''
-        logger.file_handler.stream.close()
-        logger.removeHandler(logger.handlers[0])
+        if(rol == 1):
+            logger.file_handler.stream.close()
+            logger.removeHandler(logger.handlers[0])
         espera.set()
         espera.clear()
     lock.release()
