@@ -85,7 +85,7 @@ def clientHandler(client_socket, lock, evento, espera):
         activosActual = 0
         received = ''
         if(rol == 1):
-            logger.file_handler.stream.close()
+            logger.handlers[0].stream.close()
             logger.removeHandler(logger.handlers[0])
         espera.set()
         espera.clear()
