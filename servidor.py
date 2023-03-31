@@ -43,7 +43,7 @@ def clientHandler(client_socket, lock, evento, espera):
     hash = hash_file(filename)
     client_socket.send(f"{filename}{SEPARATOR}{filesize}{SEPARATOR}{hash}".encode())
     client_socket.recv(BUFFER_SIZE).decode()
-
+    cliente =  str(client_socket.getpeername())
     if(activosActual < int(numUsers)):
         evento.wait()
     evento.set()
@@ -62,17 +62,16 @@ def clientHandler(client_socket, lock, evento, espera):
     end = time.time()
     if(confirmacion == 'Integridad del archivo verificada'):
         logging.info('Nombre archivo: '+filename+' -Tamano archivo: '+str(filesize) 
-                     + '\n' + 'Cliente: ' + str(client_socket.getpeername()) 
+                     + '\n' + 'Cliente: ' +cliente 
                      +'\n'  + 'Integridad: ' + confirmacion 
                      + '\n' + 'Tiempo Transferencia: '+str((end-start) * 10**3)
                      +'\n' )
     else:
         logging.warning('Nombre archivo: '+filename+' -Tamano archivo: '+str(filesize) 
-                        + '\n' + 'Cliente: ' 
+                        + '\n' + 'Cliente: ' + cliente 
                         +'\n'  + 'Integridad: ' + confirmacion
                         +'\n' + 'Tiempo Transferencia: '+str((end-start) * 10**3)
                         +'\n' )
-    client_socket.recv(8).decode()
     client_socket.close()
     lock.acquire()
     activosActual -= 1

@@ -76,7 +76,6 @@ def conectar(i):
     else:
         s2.send(f" Integridad del archivo vulnerada".encode())
         logging.warning('Estado archivo del cliente '+str(i)+': ¡¡¡¡Integridad del archivo no se asegura!!!!')
-    s2.send(b"ready")  
     s2.close()
 
 for i in range(10):
