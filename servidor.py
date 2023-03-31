@@ -93,7 +93,7 @@ def clientHandler(client_socket, lock, evento, espera):
     lock.release()
 
 def hash_file(filename):
-   h = hashlib.sha1()
+   h = hashlib.sha256()
    with open(filename,'rb') as file:
 
        # loop till the end of the file
