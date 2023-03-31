@@ -68,7 +68,7 @@ def clientHandler(client_socket, lock, evento, espera):
                      +'\n' )
     else:
         logging.warning('Nombre archivo: '+filename+' -Tamano archivo: '+str(filesize) 
-                        + '\n' + 'Cliente: ' + str(client_socket.getpeername()) 
+                        + '\n' + 'Cliente: ' 
                         +'\n'  + 'Integridad: ' + confirmacion
                         +'\n' + 'Tiempo Transferencia: '+str((end-start) * 10**3)
                         +'\n' )

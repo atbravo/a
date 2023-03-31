@@ -79,6 +79,6 @@ def conectar(i):
     s2.send(b"ready")  
     s2.close()
 
-for i in range(25):
+for i in range(10):
     x = threading.Thread(target = conectar, args=(i,))
     x.start()
