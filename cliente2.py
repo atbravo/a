@@ -14,7 +14,7 @@ logging.getLogger().setLevel(logging.DEBUG)
 
 SEPARATOR = "<SEPARATOR>"
 BUFFER_SIZE = 4096
-host = "192.168.232.128"
+host = "127.0.0.1"
 port = 8001
 filename = ''
 numRec=0
@@ -53,7 +53,7 @@ def conectar(i):
     filename, filesize, hash = received.split(SEPARATOR)
     filename = os.path.basename(filename)
     logging.info('Nombre archivo: '+filename+' -Tamano archivo: '+filesize)
-    logging.info('Cliente: '+str(i))
+    logging.info('Cliente: '+str(i) + ' conectado')
     filename = './ArchivosRecibidos/'+str(i)+'-Prueba-'+str(numRec)+'.txt'
     filesize = int(filesize)
     s2.send(b"ready")
@@ -76,7 +76,7 @@ def conectar(i):
     else:
         s2.send(f" Integridad del archivo vulnerada".encode())
         logging.warning('Estado archivo del cliente '+str(i)+': ¡¡¡¡Integridad del archivo no se asegura!!!!')
-    s2.recv(8).decode()
+    s2.send(b"ready")  
     s2.close()
 
 for i in range(5):

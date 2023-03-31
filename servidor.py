@@ -71,7 +71,7 @@ def clientHandler(client_socket, lock, evento, espera):
                         +'\n'  + 'Integridad: ' + confirmacion
                         +'\n' + 'Tiempo Transferencia: '+str((end-start) * 10**3)
                         +'\n' )
-    client_socket.send(b"ready")    
+    client_socket.recv(8).decode()
     client_socket.close()
     lock.acquire()
     activosActual -= 1
