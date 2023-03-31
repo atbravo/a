@@ -37,7 +37,7 @@ def clientHandler(client_socket, lock, evento, espera):
         activosActual += 1
     filename, numUsers = received.split(SEPARATOR)
     lock.release()
-
+    filename = "./archivosDisponibles/" + filename
     filesize = os.path.getsize(filename)
     hash = hash_file(filename)
     client_socket.send(f"{filename}{SEPARATOR}{filesize}{SEPARATOR}{hash}".encode())
