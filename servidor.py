@@ -1,42 +1,88 @@
 import socket
-from threading import Lock
+from threading import Lock, Event
 #import tqdm
 import threading
 import os
 import hashlib
+import logging
+from datetime import datetime
+import time
 
-def clientHandler(client_socket, lock):
+now = datetime.now()
+dt_string = now.strftime("%Y-%m-%d-%H-%M-%S")
+
+logging.basicConfig(filename='Logs/'+str(dt_string)+'-log.txt', filemode='w')
+logging.getLogger().setLevel(logging.DEBUG)
+
+def clientHandler(client_socket, lock, evento, espera):
+    global numUsers
     global received
-    global enviar 
-    rol = 0
+    global activosActual 
+    filename = ''
+    numUsers = ''
+
     lock.acquire()
-    if(enviar == 0):
-        enviar = 1
-        rol = 1
+    if(numUsers != '' and activosActual > int(numUsers) -1):
+        lock.release()
+        espera.wait()
+        lock.acquire()
+
+    if(activosActual == 0):
+        activosActual = 1
         client_socket.send(f"enviar".encode())
         received = client_socket.recv(BUFFER_SIZE).decode()
     else:
         client_socket.send(f"recibir".encode())
         client_socket.recv(8).decode()
+        activosActual += 1
+    filename, numUsers = received.split(SEPARATOR)
     lock.release()
 
-    filename, numUsers = received.split(SEPARATOR)
     filesize = os.path.getsize(filename)
     hash = hash_file(filename)
     client_socket.send(f"{filename}{SEPARATOR}{filesize}{SEPARATOR}{hash}".encode())
     client_socket.recv(BUFFER_SIZE).decode()
-    print(numUsers)
-    activos = threading.activeCount() - 1
-    if( activos >= int(numUsers)):
+
+    if(activosActual < int(numUsers)):
+        evento.wait()
+    evento.set()
+    evento.clear()
+    if( activosActual == int(numUsers)):
         with open(filename, "rb") as f:
+            start = time.time()
             while True:
                 bytes_read = f.read(BUFFER_SIZE)
                 if not bytes_read:
                     break
-                client_socket.sendall(bytes_read)
-            #progress.update(len(bytes_read))   
-    print(threading.activeCount() - 1)
+                client_socket.send(bytes_read)  
+    print('enviado')
+    client_socket.shutdown(socket.SHUT_WR)
+    confirmacion = client_socket.recv(BUFFER_SIZE).decode()
+    end = time.time()
+    if(confirmacion == 'Integridad del archivo verificada'):
+        logging.info('Nombre archivo: '+filename+' -Tamano archivo: '+str(filesize) 
+                     + '\n' + 'Cliente: ' + str(client_socket.getpeername()) 
+                     +'\n'  + 'Integridad: ' + confirmacion 
+                     + '\n' + 'Tiempo Transferencia: '+str((end-start) * 10**3)
+                     +'\n' )
+    else:
+        logging.warning('Nombre archivo: '+filename+' -Tamano archivo: '+str(filesize) 
+                        + '\n' + 'Cliente: ' + str(client_socket.getpeername()) 
+                        +'\n'  + 'Integridad: ' + confirmacion
+                        +'\n' + 'Tiempo Transferencia: '+str((end-start) * 10**3)
+                        +'\n' )
+
     client_socket.close()
+    lock.acquire()
+    activosActual -= 1
+    if(activosActual <= 0 or threading.activeCount() - 1 == 0):
+        filename = ''
+        numUsers = ''
+        activosActual = 0
+        received = ''
+        espera.set()
+        espera.clear()
+    lock.release()
 
 def hash_file(filename):
    h = hashlib.sha1()
@@ -59,8 +105,11 @@ BUFFER_SIZE = 4096
 SEPARATOR = "<SEPARATOR>"
 
 lock = Lock()
-enviar = 0
+evento = Event()
+espera = Event()
+activosActual = 0
 received = ''
+
 s = socket.socket()
 s.bind((SERVER_HOST, SERVER_PORT))
 s.listen(10)
@@ -72,5 +121,5 @@ while True:
     client_socket, address = s.accept()
     print(f"[+] {address} is connected.")
     # create and start a thread to handle the client
-    client_handler = threading.Thread(target = clientHandler, args=(client_socket, lock,))
+    client_handler = threading.Thread(target = clientHandler, args=(client_socket, lock, evento, espera))
     client_handler.start()

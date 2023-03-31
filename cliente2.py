@@ -2,12 +2,22 @@ import socket
 import threading
 import os
 import hashlib
+import logging
+from datetime import datetime
+import time
+
+now = datetime.now()
+dt_string = now.strftime("%Y-%m-%d-%H-%M-%S")
+
+logging.basicConfig(filename='Logs/'+str(dt_string)+'-log.txt', filemode='w')
+logging.getLogger().setLevel(logging.DEBUG)
 
 SEPARATOR = "<SEPARATOR>"
 BUFFER_SIZE = 4096
-host =input('ip')
+host = "127.0.0.1"
 port = 8001
 filename = ''
+numRec=0
 
 def hash_file(filename):
    h = hashlib.sha1()
@@ -23,7 +33,8 @@ def hash_file(filename):
    # return the hex representation of digest
    return h.hexdigest()
 
-def conectar():
+def conectar(i):
+    global numRec
     s2 = socket.socket()
 
     print(f"[+] Connecting to {host}:{port}")
@@ -33,31 +44,40 @@ def conectar():
     rol = s2.recv(BUFFER_SIZE).decode()
     if (rol == 'enviar'):
         filename = input('Archivo a transferir')
-        s2.send(f"{filename}".encode())
-    else:
+        numRec = input('Numero de personas')
+        s2.send(f"{filename}{SEPARATOR}{numRec}".encode())
+    elif (rol == 'recibir'):
         s2.send(b"ready")
-    
+
     received = s2.recv(BUFFER_SIZE).decode()
     filename, filesize, hash = received.split(SEPARATOR)
     filename = os.path.basename(filename)
-    print(filename)
+    logging.info('Nombre archivo: '+filename+' -Tamano archivo: '+filesize)
+    logging.info('Cliente: '+str(i))
+    filename = './ArchivosRecibidos/'+str(i)+'-Prueba-'+str(numRec)+'.txt'
     filesize = int(filesize)
     s2.send(b"ready")
     with open(filename, "wb") as f:
+        start = time.time()
+        print('Empieza: '+str(start)+' -Cliente:'+str(i))
         while True:
             bytes_read = s2.recv(BUFFER_SIZE)
             if not bytes_read:
                 break
             f.write(bytes_read)
+        end = time.time()
+        print('Termina: '+str(end)+' -Cliente:'+str(i))
+        logging.info('Tiempo del cliente '+str(i)+': '+str((end-start) * 10**3))
 
-            
     message = hash_file(filename)
     if (message == hash):
-        print("Integridad del archivo verificada")
+        s2.send(f"Integridad del archivo verificada".encode())
+        logging.info('Estado archivo del cliente '+str(i)+': Integridad del archivo verificada')
     else:
-        print("¡¡¡¡Integridad del acchivo no se asegura!!!!")
+        s2.send(f" Integridad del archivo vulnerada".encode())
+        logging.warning('Estado archivo del cliente '+str(i)+': ¡¡¡¡Integridad del archivo no se asegura!!!!')
     s2.close()
 
 for i in range(5):
-    x = threading.Thread(target = conectar, args=())
+    x = threading.Thread(target = conectar, args=(i,))
     x.start()
