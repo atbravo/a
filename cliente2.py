@@ -14,7 +14,7 @@ logging.getLogger().setLevel(logging.DEBUG)
 
 SEPARATOR = "<SEPARATOR>"
 BUFFER_SIZE = 4096
-host = "127.0.0.1"
+host = "192.168.232.128"
 port = 8001
 filename = ''
 numRec=0
@@ -76,6 +76,7 @@ def conectar(i):
     else:
         s2.send(f" Integridad del archivo vulnerada".encode())
         logging.warning('Estado archivo del cliente '+str(i)+': ¡¡¡¡Integridad del archivo no se asegura!!!!')
+    s2.recv(8).decode()
     s2.close()
 
 for i in range(5):

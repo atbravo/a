@@ -1,0 +1,20 @@
+INFO:root:Nombre archivo: archivo100.txt -Tamano archivo: 104857600
+INFO:root:Cliente: 0
+INFO:root:Nombre archivo: archivo100.txt -Tamano archivo: 104857600
+INFO:root:Cliente: 2
+INFO:root:Nombre archivo: archivo100.txt -Tamano archivo: 104857600
+INFO:root:Cliente: 3
+INFO:root:Nombre archivo: archivo100.txt -Tamano archivo: 104857600
+INFO:root:Cliente: 1
+INFO:root:Nombre archivo: archivo100.txt -Tamano archivo: 104857600
+INFO:root:Cliente: 4
+INFO:root:Tiempo del cliente 0: 919.9295043945312
+INFO:root:Estado archivo del cliente 0: Integridad del archivo verificada
+INFO:root:Tiempo del cliente 2: 1999.2599487304688
+INFO:root:Tiempo del cliente 3: 2141.1683559417725
+INFO:root:Tiempo del cliente 1: 2052.119016647339
+INFO:root:Tiempo del cliente 4: 2060.2264404296875
+INFO:root:Estado archivo del cliente 2: Integridad del archivo verificada
+INFO:root:Estado archivo del cliente 3: Integridad del archivo verificada
+INFO:root:Estado archivo del cliente 1: Integridad del archivo verificada
+INFO:root:Estado archivo del cliente 4: Integridad del archivo verificada
