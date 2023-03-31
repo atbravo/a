@@ -14,6 +14,7 @@ def clientHandler(client_socket, lock, evento, espera):
     global numUsers
     global received
     global activosActual 
+    global logger
     filename = ''
     numUsers = ''
     
@@ -84,7 +85,7 @@ def clientHandler(client_socket, lock, evento, espera):
         numUsers = ''
         activosActual = 0
         received = ''
-        if(rol == 1):
+        if(len(logger.handlers) > 0):
             logger.handlers[0].stream.close()
             logger.removeHandler(logger.handlers[0])
         espera.set()
