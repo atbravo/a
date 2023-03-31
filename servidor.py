@@ -8,10 +8,12 @@ import logging
 from datetime import datetime
 import time
 
+file_handler = ''
 def clientHandler(client_socket, lock, evento, espera):
     global numUsers
     global received
     global activosActual 
+    global file_handler
     filename = ''
     numUsers = ''
 
@@ -80,6 +82,8 @@ def clientHandler(client_socket, lock, evento, espera):
         numUsers = ''
         activosActual = 0
         received = ''
+        logger.file_handler.stream.close()
+        logger.removeHandler(logger.handlers[0])
         espera.set()
         espera.clear()
     lock.release()
