@@ -14,7 +14,7 @@ logging.getLogger().setLevel(logging.DEBUG)
 
 SEPARATOR = "<SEPARATOR>"
 BUFFER_SIZE = 4096
-host = "127.0.0.1"
+host = "192.168.232.128"
 port = 8001
 filename = ''
 numRec=0
@@ -79,6 +79,6 @@ def conectar(i):
     s2.send(b"ready")  
     s2.close()
 
-for i in range(5):
+for i in range(25):
     x = threading.Thread(target = conectar, args=(i,))
     x.start()

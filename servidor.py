@@ -8,12 +8,6 @@ import logging
 from datetime import datetime
 import time
 
-now = datetime.now()
-dt_string = now.strftime("%Y-%m-%d-%H-%M-%S")
-
-logging.basicConfig(filename='Logs/'+str(dt_string)+'-log.txt', filemode='w')
-logging.getLogger().setLevel(logging.DEBUG)
-
 def clientHandler(client_socket, lock, evento, espera):
     global numUsers
     global received
@@ -31,6 +25,12 @@ def clientHandler(client_socket, lock, evento, espera):
         activosActual = 1
         client_socket.send(f"enviar".encode())
         received = client_socket.recv(BUFFER_SIZE).decode()
+
+        now = datetime.now()
+        dt_string = now.strftime("%Y-%m-%d-%H-%M-%S")
+
+        logging.basicConfig(filename='Logs/'+str(dt_string)+'-log.txt', filemode='w')
+        logging.getLogger().setLevel(logging.DEBUG)
     else:
         client_socket.send(f"recibir".encode())
         client_socket.recv(8).decode()
