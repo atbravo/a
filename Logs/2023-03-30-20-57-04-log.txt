@@ -1,0 +1,100 @@
+INFO:root:Nombre archivo: archivo100.txt -Tamano archivo: 104857600
+INFO:root:Cliente: 10 conectado
+INFO:root:Nombre archivo: archivo100.txt -Tamano archivo: 104857600
+INFO:root:Cliente: 1 conectado
+INFO:root:Nombre archivo: archivo100.txt -Tamano archivo: 104857600
+INFO:root:Cliente: 12 conectado
+INFO:root:Nombre archivo: archivo100.txt -Tamano archivo: 104857600
+INFO:root:Cliente: 24 conectado
+INFO:root:Nombre archivo: archivo100.txt -Tamano archivo: 104857600
+INFO:root:Cliente: 8 conectado
+INFO:root:Nombre archivo: archivo100.txt -Tamano archivo: 104857600
+INFO:root:Cliente: 5 conectado
+INFO:root:Nombre archivo: archivo100.txt -Tamano archivo: 104857600
+INFO:root:Cliente: 3 conectado
+INFO:root:Nombre archivo: archivo100.txt -Tamano archivo: 104857600
+INFO:root:Cliente: 11 conectado
+INFO:root:Nombre archivo: archivo100.txt -Tamano archivo: 104857600
+INFO:root:Cliente: 14 conectado
+INFO:root:Nombre archivo: archivo100.txt -Tamano archivo: 104857600
+INFO:root:Cliente: 6 conectado
+INFO:root:Nombre archivo: archivo100.txt -Tamano archivo: 104857600
+INFO:root:Cliente: 22 conectado
+INFO:root:Nombre archivo: archivo100.txt -Tamano archivo: 104857600
+INFO:root:Cliente: 15 conectado
+INFO:root:Nombre archivo: archivo100.txt -Tamano archivo: 104857600
+INFO:root:Cliente: 9 conectado
+INFO:root:Nombre archivo: archivo100.txt -Tamano archivo: 104857600
+INFO:root:Cliente: 20 conectado
+INFO:root:Nombre archivo: archivo100.txt -Tamano archivo: 104857600
+INFO:root:Cliente: 17 conectado
+INFO:root:Nombre archivo: archivo100.txt -Tamano archivo: 104857600
+INFO:root:Cliente: 4 conectado
+INFO:root:Nombre archivo: archivo100.txt -Tamano archivo: 104857600
+INFO:root:Cliente: 19 conectado
+INFO:root:Nombre archivo: archivo100.txt -Tamano archivo: 104857600
+INFO:root:Cliente: 13 conectado
+INFO:root:Nombre archivo: archivo100.txt -Tamano archivo: 104857600
+INFO:root:Cliente: 21 conectado
+INFO:root:Nombre archivo: archivo100.txt -Tamano archivo: 104857600
+INFO:root:Cliente: 23 conectado
+INFO:root:Nombre archivo: archivo100.txt -Tamano archivo: 104857600
+INFO:root:Cliente: 0 conectado
+INFO:root:Nombre archivo: archivo100.txt -Tamano archivo: 104857600
+INFO:root:Cliente: 18 conectado
+INFO:root:Nombre archivo: archivo100.txt -Tamano archivo: 104857600
+INFO:root:Cliente: 7 conectado
+INFO:root:Nombre archivo: archivo100.txt -Tamano archivo: 104857600
+INFO:root:Cliente: 16 conectado
+INFO:root:Nombre archivo: archivo100.txt -Tamano archivo: 104857600
+INFO:root:Cliente: 2 conectado
+INFO:root:Tiempo del cliente 15: 8320.84608078003
+INFO:root:Estado archivo del cliente 15: Integridad del archivo verificada
+INFO:root:Tiempo del cliente 2: 8313.026189804077
+INFO:root:Estado archivo del cliente 2: Integridad del archivo verificada
+INFO:root:Tiempo del cliente 19: 9573.973655700684
+INFO:root:Estado archivo del cliente 19: Integridad del archivo verificada
+INFO:root:Tiempo del cliente 14: 10227.633953094482
+INFO:root:Estado archivo del cliente 14: Integridad del archivo verificada
+INFO:root:Tiempo del cliente 23: 10092.077255249023
+INFO:root:Tiempo del cliente 20: 10485.238075256348
+INFO:root:Tiempo del cliente 11: 10777.383804321289
+INFO:root:Tiempo del cliente 1: 11107.512712478638
+INFO:root:Tiempo del cliente 17: 10521.283149719238
+INFO:root:Tiempo del cliente 21: 10492.819786071777
+INFO:root:Tiempo del cliente 4: 10621.060848236084
+INFO:root:Tiempo del cliente 22: 10983.914613723755
+INFO:root:Tiempo del cliente 10: 11632.461786270142
+INFO:root:Tiempo del cliente 24: 11551.239013671875
+INFO:root:Tiempo del cliente 8: 11552.332401275635
+INFO:root:Estado archivo del cliente 23: Integridad del archivo verificada
+INFO:root:Tiempo del cliente 7: 10932.832717895508
+INFO:root:Tiempo del cliente 13: 11190.224647521973
+INFO:root:Tiempo del cliente 9: 11432.45267868042
+INFO:root:Tiempo del cliente 3: 11727.306127548218
+INFO:root:Tiempo del cliente 0: 11143.83316040039
+INFO:root:Tiempo del cliente 12: 12074.626445770264
+INFO:root:Tiempo del cliente 18: 11227.376937866211
+INFO:root:Tiempo del cliente 5: 12152.318477630615
+INFO:root:Tiempo del cliente 16: 11476.997137069702
+INFO:root:Tiempo del cliente 6: 12142.359018325806
+INFO:root:Estado archivo del cliente 20: Integridad del archivo verificada
+INFO:root:Estado archivo del cliente 11: Integridad del archivo verificada
+INFO:root:Estado archivo del cliente 1: Integridad del archivo verificada
+INFO:root:Estado archivo del cliente 17: Integridad del archivo verificada
+INFO:root:Estado archivo del cliente 21: Integridad del archivo verificada
+INFO:root:Estado archivo del cliente 4: Integridad del archivo verificada
+INFO:root:Estado archivo del cliente 22: Integridad del archivo verificada
+INFO:root:Estado archivo del cliente 10: Integridad del archivo verificada
+INFO:root:Estado archivo del cliente 24: Integridad del archivo verificada
+INFO:root:Estado archivo del cliente 8: Integridad del archivo verificada
+INFO:root:Estado archivo del cliente 7: Integridad del archivo verificada
+INFO:root:Estado archivo del cliente 13: Integridad del archivo verificada
+INFO:root:Estado archivo del cliente 9: Integridad del archivo verificada
+INFO:root:Estado archivo del cliente 3: Integridad del archivo verificada
+INFO:root:Estado archivo del cliente 0: Integridad del archivo verificada
+INFO:root:Estado archivo del cliente 12: Integridad del archivo verificada
+INFO:root:Estado archivo del cliente 18: Integridad del archivo verificada
+INFO:root:Estado archivo del cliente 5: Integridad del archivo verificada
+INFO:root:Estado archivo del cliente 16: Integridad del archivo verificada
+INFO:root:Estado archivo del cliente 6: Integridad del archivo verificada

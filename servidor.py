@@ -28,8 +28,9 @@ def clientHandler(client_socket, lock, evento, espera):
 
         now = datetime.now()
         dt_string = now.strftime("%Y-%m-%d-%H-%M-%S")
-
-        logging.basicConfig(filename='Logs/'+str(dt_string)+'-log.txt', filemode='w')
+        file_handler = logging.FileHandler('Logs/'+str(dt_string)+'-log.txt')
+        logger = logging.getLogger()
+        logger.addHandler(file_handler)
         logging.getLogger().setLevel(logging.DEBUG)
     else:
         client_socket.send(f"recibir".encode())
