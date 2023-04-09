@@ -1,5 +1,6 @@
 import socket
 import threading
+from threading import Lock
 import os
 import hashlib
 import logging
@@ -9,8 +10,6 @@ import time
 now = datetime.now()
 dt_string = now.strftime("%Y-%m-%d-%H-%M-%S")
 
-logging.basicConfig(filename='Logs/'+str(dt_string)+'-log.txt', filemode='w')
-logging.getLogger().setLevel(logging.DEBUG)
 
 SEPARATOR = "<SEPARATOR>"
 BUFFER_SIZE = 4096
@@ -18,9 +17,10 @@ host = "192.168.232.128"
 port = 8001
 filename = ''
 numRec=0
+lock = Lock()
 
 def hash_file(filename):
-   h = hashlib.sha1()
+   h = hashlib.sha256()
    with open(filename,'rb') as file:
 
        # loop till the end of the file
@@ -34,17 +34,18 @@ def hash_file(filename):
    return h.hexdigest()
 
 def conectar(i):
+    global lock
     global numRec
     s2 = socket.socket()
 
-    print(f"[+] Connecting to {host}:{port}")
     s2.connect((host, port))
-    print("[+] Connected to ", host)
 
     rol = s2.recv(BUFFER_SIZE).decode()
+
     if (rol == 'enviar'):
-        filename = input('Archivo a transferir')
-        numRec = input('Numero de personas')
+        print('Subimos dos archivos: \'archivo100.txt\', \'archivo200.txt\'')
+        filename = input('Escoja el Archivo a transferir ')
+        numRec = input('Numero de personas ')
         s2.send(f"{filename}{SEPARATOR}{numRec}".encode())
     elif (rol == 'recibir'):
         s2.send(b"ready")
@@ -52,8 +53,6 @@ def conectar(i):
     received = s2.recv(BUFFER_SIZE).decode()
     filename, filesize, hash = received.split(SEPARATOR)
     filename = os.path.basename(filename)
-    logging.info('Nombre archivo: '+filename+' -Tamano archivo: '+filesize)
-    logging.info('Cliente: '+str(i) + ' conectado')
     filename = './ArchivosRecibidos/'+str(i)+'-Prueba-'+str(numRec)+'.txt'
     filesize = int(filesize)
     s2.send(b"ready")
@@ -67,17 +66,29 @@ def conectar(i):
             f.write(bytes_read)
         end = time.time()
         print('Termina: '+str(end)+' -Cliente:'+str(i))
-        logging.info('Tiempo del cliente '+str(i)+': '+str((end-start) * 10**3))
-
     message = hash_file(filename)
+
+    lock.acquire()
+    dt_string = now.strftime("%Y-%m-%d-%H-%M-%S")
+    file_handler = logging.FileHandler('Logs/'+ 'cliente' + str(i) + '-' +str(dt_string)+'-log.txt')
+    logger = logging.getLogger()
+    logger.addHandler(file_handler)
+    logging.getLogger().setLevel(logging.DEBUG)
+    logging.info('Nombre archivo: '+filename+' -Tamano archivo: '+ str(filesize) + ' bytes')
+    logging.info('Cliente: '+str(i) + ' conectado')
+    logging.info('Tiempo del cliente '+str(i)+': '+str((end-start) * 10**3) + ' ms')
     if (message == hash):
         s2.send(f"Integridad del archivo verificada".encode())
         logging.info('Estado archivo del cliente '+str(i)+': Integridad del archivo verificada')
     else:
         s2.send(f" Integridad del archivo vulnerada".encode())
         logging.warning('Estado archivo del cliente '+str(i)+': ¡¡¡¡Integridad del archivo no se asegura!!!!')
+    logger.handlers[0].stream.close()
+    logger.removeHandler(logger.handlers[0])
+    lock.release()
     s2.close()
 
-for i in range(10):
+
+for i in range(5):
     x = threading.Thread(target = conectar, args=(i,))
     x.start()
