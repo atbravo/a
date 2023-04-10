@@ -1,0 +1,4 @@
+Nombre archivo: ./ArchivosRecibidos/0-Prueba-5.txt -Tamano archivo: 104857600 bytes
+Cliente: ('192.168.232.1', 61735) conectado
+Tiempo del cliente 0: 4905.349493026733 ms
+Estado archivo del cliente 0: Integridad del archivo verificada

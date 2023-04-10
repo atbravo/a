@@ -1,0 +1,4 @@
+Nombre archivo: ./ArchivosRecibidos/8-Prueba-10.txt -Tamano archivo: 262144000 bytes
+Cliente: ('192.168.232.1', 62288) conectado
+Tiempo del cliente 8: 15589.275121688843 ms
+Estado archivo del cliente 8: Integridad del archivo verificada
