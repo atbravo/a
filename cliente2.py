@@ -43,7 +43,7 @@ def conectar(i):
     rol = s2.recv(BUFFER_SIZE).decode()
 
     if (rol == 'enviar'):
-        print('Subimos dos archivos: \'archivo100.txt\', \'archivo200.txt\'')
+        print('Subimos dos archivos: \'archivo100.txt\', \'archivo250.txt\'')
         filename = input('Escoja el Archivo a transferir ')
         numRec = input('Numero de personas ')
         s2.send(f"{filename}{SEPARATOR}{numRec}".encode())
@@ -58,14 +58,12 @@ def conectar(i):
     s2.send(b"ready")
     with open(filename, "wb") as f:
         start = time.time()
-        print('Empieza: '+str(start)+' -Cliente:'+str(i))
         while True:
             bytes_read = s2.recv(BUFFER_SIZE)
             if not bytes_read:
                 break
             f.write(bytes_read)
         end = time.time()
-        print('Termina: '+str(end)+' -Cliente:'+str(i))
     message = hash_file(filename)
 
     lock.acquire()
@@ -75,7 +73,7 @@ def conectar(i):
     logger.addHandler(file_handler)
     logging.getLogger().setLevel(logging.DEBUG)
     logging.info('Nombre archivo: '+filename+' -Tamano archivo: '+ str(filesize) + ' bytes')
-    logging.info('Cliente: '+str(i) + ' conectado')
+    logging.info('Cliente: '+ str(s2.getsockname()) + ' conectado')
     logging.info('Tiempo del cliente '+str(i)+': '+str((end-start) * 10**3) + ' ms')
     if (message == hash):
         s2.send(f"Integridad del archivo verificada".encode())
@@ -89,6 +87,6 @@ def conectar(i):
     s2.close()
 
 
-for i in range(5):
+for i in range(10):
     x = threading.Thread(target = conectar, args=(i,))
     x.start()
