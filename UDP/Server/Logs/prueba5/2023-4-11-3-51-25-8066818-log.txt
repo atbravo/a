@@ -1,0 +1,7 @@
+Nombre del archivo: 100MB.txt
+Tamanio del archivo: 104857600
+Cliente al que se realiza la transeferencia de archivos: 8
+Estado de entrega del archivo: No se entrega el archivo exitosamente
+Tiempo de transferencia: 0:00:16.109265
+Paquetes enviados: 3495
+Total de bytes enviados: 104885562

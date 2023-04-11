@@ -1,0 +1,7 @@
+Nombre del archivo: 250MB.txt
+Tamanio del archivo: 262144000
+Cliente al que se realiza la transeferencia de archivos: 1
+Estado de entrega del archivo: No se entrega el archivo exitosamente
+Tiempo de transferencia: 0:00:43.439337
+Paquetes enviados: 8738
+Total de bytes enviados: 262213905

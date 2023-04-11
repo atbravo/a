@@ -1,0 +1,6 @@
+Nombre del archivo: Cliente2-Prueba-10.txt
+Tamanio del archivo: 104707600
+Cliente que recibe la transeferencia de archivos: 2
+Estado de entrega del archivo: No se entrega el archivo exitosamente
+Tiempo de transferencia: 0:01:22.528481
+Valor total de bytes enviado: 104857600
