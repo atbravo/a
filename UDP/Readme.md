@@ -3,7 +3,9 @@
 ## Instrucciones de instalación:
 
 Para poder tener el aplicativo desarrollado en el servidor es necesario primero clonar el repositorio, abrir la carpeta Server y crear la carpeta Logs donde quedarán guardados los registros logs de la transferencia de archivos por cada prueba realizada que contiene los registros para cada conexión recibida en la prueba. Luego, se deben crear los archivos de prueba. En una maquina linux se debe ingresar a la carpeta Server/files y correr los siguientes dos comandos.
+
 `dd if=/dev/zero of=100MB.txt bs=1M count=100`
+
 `dd if=/dev/zero of=250MB.txt bs=1M count=250`
 
 Para usar la aplicación del cliente, es necesario seguir algunos pasos. Primero, hay que clonar el repositorio y luego abrir la carpeta del cliente. Dentro de esta carpeta, es necesario crear dos carpetas: Logs y ArchivosRecibidos. Estas carpetas servirán para guardar los registros de transferencia de archivos y los archivos transferidos a cada cliente, respectivamente. Para hacer más fácil el proceso de creación de estas carpetas, ya han sido creadas previamente y contienen un archivo .dummyfile. Al clonar el proyecto, aparecerán estas carpetas automáticamente.
